@@ -68,9 +68,12 @@ class TnT:
         m = np.array([False]*X.shape[0])
         for p in n.parents:
             m_temp = mask_all[node_all.index(p)]
+            # print(m)
+            # print(m_temp)
+            # print(m[m_temp])
             left_mask, right_mask = self._get_children_mask(p, X[m_temp, :])
             if n is p.left:
-                m[m_temp] = m[m_temp] + left_mask
+                m[m_temp] = m[m_temp] + left_mask # bitwise or
             if n is p.right:
                 m[m_temp] = m[m_temp] + right_mask
         return m
@@ -79,6 +82,7 @@ class TnT:
         """
             breath-first growing of TnT
         """
+        ## use a topsort is more efficient
         nodes = [self.graph]
         node_all, mask_all = [], []
         while len(nodes) > 0:
@@ -93,26 +97,30 @@ class TnT:
                 l_result = self.predict(trX, n.left)
                 r_result = self.predict(trX, n.right)
                 matter_index = l_result != r_result
-                l_win_index = (l_result == trY) * matter_index
+                l_win_index = (l_result == trY) * matter_index ## bitwise and
                 r_win_index = (r_result == trY) * matter_index
+
                 sen_trX = np.concatenate((trX[l_win_index, :], trX[r_win_index, :]), axis=0)
-                sen_trY = np.concatenate((np.zeros(l_win_index.sum()), np.ones(r_win_index.sum())), axis=0)
+                sen_trY = np.concatenate((np.zeros(l_win_index.sum()), np.ones(r_win_index.sum())), axis=0) ####
                 sen_sample_weight = np.concatenate((sample_weight[l_win_index], sample_weight[r_win_index]), axis=0)
-                n.update_substitute(sen_trX, sen_trY, sen_sample_weight, **self.kwargs)
+
+                ## only train on wrong data() 
+                n.update_substitute(sen_trX, sen_trY, sen_sample_weight, **self.kwargs)   ## tree in tree
             else:  # for leaf node
                 n.update_substitute(trX, trY, sample_weight, **self.kwargs)
 
             if n.left is not None and n.right is not None:  # internal nodes
                 if n.left in nodes:
                     nodes.remove(n.left)
-                nodes.append(n.left)
+                nodes.append(n.left) ####### ...... why not use a 'vis' array to track if being visited
                 if n.right in nodes:
                     nodes.remove(n.right)
                 nodes.append(n.right)
 
             node_all.append(n)
             mask_all.append(m)
-
+        # print(node_all)
+        # print(mask_all)
         return node_all, mask_all
 
     def fit(self, trX, trY, sample_weight=None):
@@ -166,7 +174,7 @@ class TnT:
             i = node_all.index(n)
             m = mask_all[i]
 
-            if n.label is not None:
+            if n.label is not None: ## leaf
                 continue
 
             if n.left in node_list:
@@ -212,7 +220,7 @@ class TnT:
         pred=np.zeros(l)
         for i in range(len(node_all)):
             n = node_all[i]
-            if (n.label is not None) and np.sum(mask_all[i])>0:
+            if (n.label is not None) and np.sum(mask_all[i])>0: ## in leaf node
                 if n.substitute is not None:
                     pred[mask_all[i]]=n.substitute.predict(teX[mask_all[i]])
                 else:

@@ -2,9 +2,12 @@ import numpy as np
 from scipy.sparse import csr_matrix
 
 def visTnT(model, X, y, **kwargs):
-    from sknetwork.visualization import svg_digraph
+    from sknetwork.visualization import svg_graph
     adjacency, class_label = get_adjacency(model, X, y)
-    image = svg_digraph(adjacency, labels=class_label, **kwargs)
+    image = svg_graph(adjacency, labels=class_label, **kwargs)
+    # print(adjacency)
+    # print(class_label)
+    # image = svg_graph(adjacency, **kwargs)
     return image
     
 
