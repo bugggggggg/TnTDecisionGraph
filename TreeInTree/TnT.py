@@ -112,7 +112,7 @@ class TnT:
             if n.left is not None and n.right is not None:  # internal nodes
                 if n.left in nodes:
                     nodes.remove(n.left)
-                nodes.append(n.left) ####### ...... why not use a 'vis' array to track if being visited
+                nodes.append(n.left) 
                 if n.right in nodes:
                     nodes.remove(n.right)
                 nodes.append(n.right)
