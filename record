@@ -1,6 +1,6 @@
 1. 展示用python生成的tnt 和 cart 在iris上的比较
 2. 在一些数据集上跑,比较准确率和运行时间(控制节点数一样)
-3. 控制N1和准确率,画一个N1-accuracy的图,来说明训练一两次就可以达到满意的准确率
+3. 控制N2和准确率,画一个N2-accuracy的图,来说明训练一两次就可以达到满意的准确率
 
 
 pendigits
@@ -29,7 +29,18 @@ CART accuracy (test set): 0.9527272727272728
 train time: 0.03
 CART model complexity:  128  internal nodes,  129  leaf nodes
 --------------------------------------------------
-
+ccp=0.0001
+-------------------------tnt-------------------------
+TnT accuracy (train set): 0.9997978164173069
+TnT accuracy (test set): 0.9609090909090909
+train time: 2.77
+TnT model complexity:  300  internal nodes,  282  leaf nodes
+-------------------------cart-------------------------
+CART accuracy (train set): 0.9990901738778811
+CART accuracy (test set): 0.9618181818181818
+train time: 0.05
+CART model complexity:  300  internal nodes,  301  leaf nodes
+--------------------------------------------------
 
 
 
@@ -71,3 +82,16 @@ CART accuracy (test set): 0.8705
 train time: 0.06
 CART model complexity:  1533  internal nodes,  1534  leaf nodes
 --------------------------------------------------
+
+
+
+mnist
+TnT accuracy (train set): 0.9559333333333333
+TnT accuracy (test set): 0.9005
+-183.09
+TnT model complexity:  1066  internal nodes,  681  leaf nodes
+
+CART accuracy (train set): 0.9379833333333333
+9.60
+CART accuracy (test set): 0.8839
+CART model complexity:  1066  internal nodes,  1067  leaf nodes

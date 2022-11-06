@@ -11,7 +11,7 @@ import time
 import pandas as pd
 
 
-def compare_tnt_cart(X, Y, ccp_alpha, feature_names, class_names, dataset_name):
+def compare_tnt_cart(X, Y, ccp_alpha, feature_names, class_names, dataset_name, draw=True):
     print('-'*25+'tnt'+'-'*25)
     train_inputs, val_inputs, train_labels, val_labels = train_test_split(\
         X, Y, test_size=0.1, random_state=10)
@@ -49,23 +49,24 @@ def compare_tnt_cart(X, Y, ccp_alpha, feature_names, class_names, dataset_name):
     print('-'*50)
     # tnt.trX = train_inputs
     # tnt.prune()
-    dot_data = extract_dotdata_from_tnt(tnt=tnt, 
-                                        feature_names=feature_names,  
-                                        class_names=class_names,
-                                        X=train_inputs)
-    # print(dot_data)
-    graph = graph_from_dot_data(dot_data)
-    graph.write_png(f'tnt_{dataset_name}.png')
+    if draw:
+        dot_data = extract_dotdata_from_tnt(tnt=tnt, 
+                                            feature_names=feature_names,  
+                                            class_names=class_names,
+                                            X=train_inputs)
+        # print(dot_data)
+        graph = graph_from_dot_data(dot_data)
+        graph.write_png(f'tnt_{dataset_name}.png')
 
-    dot_data = export_graphviz(cart, out_file=None, 
-                                feature_names=feature_names,  
-                                class_names=class_names,
-                                filled=True,
-                                impurity=False,
-                                label='none')
-    dot_data = dot_data.replace('black', 'white', 1)
-    graph = graph_from_dot_data(dot_data)
-    graph.write_png(f'cart_{dataset_name}.png')
+        dot_data = export_graphviz(cart, out_file=None, 
+                                    feature_names=feature_names,  
+                                    class_names=class_names,
+                                    filled=True,
+                                    impurity=False,
+                                    label='none')
+        dot_data = dot_data.replace('black', 'white', 1)
+        graph = graph_from_dot_data(dot_data)
+        graph.write_png(f'cart_{dataset_name}.png')
     
 
 def extract_dotdata_from_tnt(tnt:TnT, feature_names, class_names, X):
@@ -151,7 +152,8 @@ def pendigits():
     compare_tnt_cart(X=np.array(X), Y=np.array(Y), ccp_alpha=0.0005, 
                         feature_names=np.array(feature_names),
                         class_names=np.array(target_names),
-                        dataset_name='pendigits')
+                        dataset_name='pendigits',
+                        draw=True)
 
 def letter_recognition():
     df = pd.read_csv('data/letter-recognition.csv')
@@ -173,8 +175,7 @@ def letter_recognition():
     compare_tnt_cart(X=np.array(X), Y=np.array(Y), ccp_alpha=0.0001, 
                         feature_names=np.array(feature_names),
                         class_names=np.array(target_names),
-                        dataset_name='letter_recognition')
+                        dataset_name='letter_recognition',
+                        drwa=False)
 
-
-letter_recognition()
-
+pendigits()
