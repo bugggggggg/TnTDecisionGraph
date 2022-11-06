@@ -1,0 +1,7 @@
+vocab/
+data/
+model/
+*.gz
+*.zip
+/images
+*.png

@@ -1,0 +1,73 @@
+1. 展示用python生成的tnt 和 cart 在iris上的比较
+2. 在一些数据集上跑,比较准确率和运行时间(控制节点数一样)
+3. 控制N1和准确率,画一个N1-accuracy的图,来说明训练一两次就可以达到满意的准确率
+
+
+pendigits
+ccp=0.001
+-------------------------tnt-------------------------
+TnT accuracy (train set): 0.9700768297614234
+TnT accuracy (test set): 0.9554545454545454
+train time: 1.04
+TnT model complexity:  80  internal nodes,  68  leaf nodes
+-------------------------cart-------------------------
+CART accuracy (train set): 0.9590578245046503
+CART accuracy (test set): 0.9354545454545454
+train time: 0.03
+CART model complexity:  80  internal nodes,  81  leaf nodes
+--------------------------------------------------
+
+ccp=0.0005
+-------------------------tnt-------------------------
+TnT accuracy (train set): 0.9851395066720582
+TnT accuracy (test set): 0.9590909090909091
+train time: 1.32
+TnT model complexity:  128  internal nodes,  110  leaf nodes
+-------------------------cart-------------------------
+CART accuracy (train set): 0.9771532551556814
+CART accuracy (test set): 0.9527272727272728
+train time: 0.03
+CART model complexity:  128  internal nodes,  129  leaf nodes
+--------------------------------------------------
+
+
+
+
+letter recognition
+ccp=0.01
+-------------------------tnt-------------------------
+TnT accuracy (train set): 0.461
+TnT accuracy (test set): 0.4345
+train time: 0.58
+TnT model complexity:  20  internal nodes,  20  leaf nodes
+-------------------------cart-------------------------
+CART accuracy (train set): 0.4297222222222222
+CART accuracy (test set): 0.4135
+train time: 0.03
+CART model complexity:  20  internal nodes,  21  leaf nodes
+--------------------------------------------------
+ccp=0.001
+(ml) C:\me\TnTDecisionGraph>python exper.py
+-------------------------tnt-------------------------
+TnT accuracy (train set): 0.7855
+TnT accuracy (test set): 0.7745
+train time: 2.76
+TnT model complexity:  196  internal nodes,  150  leaf nodes
+-------------------------cart-------------------------
+CART accuracy (train set): 0.7677777777777778
+CART accuracy (test set): 0.745
+train time: 0.05
+CART model complexity:  196  internal nodes,  197  leaf nodes
+--------------------------------------------------
+ccp=0.0001
+-------------------------tnt-------------------------
+TnT accuracy (train set): 0.9802222222222222
+TnT accuracy (test set): 0.874
+train time: 22.61
+TnT model complexity:  1533  internal nodes,  1230  leaf nodes
+-------------------------cart-------------------------
+CART accuracy (train set): 0.9741111111111111
+CART accuracy (test set): 0.8705
+train time: 0.06
+CART model complexity:  1533  internal nodes,  1534  leaf nodes
+--------------------------------------------------
