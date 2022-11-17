@@ -88,7 +88,7 @@ CART model complexity:  1533  internal nodes,  1534  leaf nodes
 mnist
 TnT accuracy (train set): 0.9559333333333333
 TnT accuracy (test set): 0.9005
--183.09
+183.09
 TnT model complexity:  1066  internal nodes,  681  leaf nodes
 
 CART accuracy (train set): 0.9379833333333333

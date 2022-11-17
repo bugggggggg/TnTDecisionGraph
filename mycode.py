@@ -172,10 +172,10 @@ def letter_recognition():
             feature_names.append(index)
     for i in range(65,91):
         target_names.append(chr(i))
-    compare_tnt_cart(X=np.array(X), Y=np.array(Y), ccp_alpha=0.0001, 
+    compare_tnt_cart(X=np.array(X), Y=np.array(Y), ccp_alpha=0.001, 
                         feature_names=np.array(feature_names),
                         class_names=np.array(target_names),
                         dataset_name='letter_recognition',
-                        drwa=False)
+                        draw=True)
 
-pendigits()
+letter_recognition()
